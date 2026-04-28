@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WordfenceCare – Managed WordPress Security Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:       #0b1120;
+  --dark-2:     #111827;
+  --dark-3:     #1a2235;
+  --blue:       #2f6feb;
+  --blue-h:     #1a5fd8;
+  --blue-light: #e8f0fe;
+  --blue-mid:   #93b8f8;
+  --teal:       #0ea5a0;
+  --teal-light: #e0f7f6;
+  --green:      #16a34a;
+  --green-l:    #dcfce7;
+  --red:        #dc2626;
+  --red-l:      #fee2e2;
+  --white:      #ffffff;
+  --gray-50:    #f9fafb;
+  --gray-100:   #f3f4f6;
+  --gray-200:   #e5e7eb;
+  --gray-300:   #d1d5db;
+  --gray-400:   #9ca3af;
+  --gray-500:   #6b7280;
+  --gray-600:   #4b5563;
+  --gray-700:   #374151;
+  --gray-800:   #1f2937;
+  --gray-900:   #111827;
+  --fh: 'Plus Jakarta Sans', sans-serif;
+  --fb: 'Inter', sans-serif;
+  --radius: 10px;
+  --radius-lg: 14px;
+}
+
+body { font-family: var(--fb); background: var(--white); color: var(--gray-800); line-height: 1.7; font-size: 15px; }
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--red);
+  padding: 8px 2rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #fff;
+  font-weight: 500;
+}
+.topbar a { color: #ffd6d6; text-decoration: underline; }
+
+/* ── NAV ── */
+nav {
+  background: var(--dark);
+  padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--fh); font-weight: 800; font-size: 1.15rem;
+  color: #ffffff; text-decoration: none;
+}
+.nav-shield {
+  width: 32px; height: 32px; background: var(--blue); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-shield svg { width: 18px; height: 18px; fill: #fff; }
+.brand-word { color: #fff; }
+.brand-care { color: var(--blue-mid); }
+
+.nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+.nav-links a { color: #9ca3af; text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.18s; }
+.nav-links a:hover { color: #ffffff; }
+.nav-btn {
+  background: var(--blue); color: #ffffff !important;
+  padding: 8px 20px; border-radius: 7px; font-weight: 600 !important;
+  font-family: var(--fh); font-size: 0.88rem !important;
+  transition: background 0.18s !important;
+}
+.nav-btn:hover { background: var(--blue-h) !important; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--dark);
+  padding: 80px 2rem 90px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(47,111,235,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(47,111,235,0.15); border: 1px solid rgba(147,184,248,0.3);
+  border-radius: 999px; padding: 5px 16px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--blue-mid); margin-bottom: 1.75rem;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-mid); }
+.hero h1 {
+  font-family: var(--fh);
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-weight: 800; line-height: 1.12; color: #ffffff;
+  max-width: 820px; margin: 0 auto 1.25rem;
+}
+.hero h1 .accent { color: var(--blue-mid); }
+.hero-sub {
+  font-size: 1.05rem; color: #9ca3af;
+  max-width: 620px; margin: 0 auto 1rem; line-height: 1.8;
+}
+.hero-sub strong { color: #e5e7eb; font-weight: 600; }
+.hero-price-line {
+  font-family: var(--fh); font-size: 1.5rem; font-weight: 700;
+  color: #ffffff; margin: 1.5rem 0 2rem;
+}
+.hero-price-line span { font-size: 1rem; font-weight: 400; color: #6b7280; }
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: #ffffff; padding: 15px 32px;
+  border-radius: var(--radius); font-family: var(--fh); font-size: 1rem;
+  font-weight: 700; text-decoration: none; display: inline-block;
+  transition: background 0.18s, transform 0.15s;
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { background: var(--blue-h); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: #e5e7eb; padding: 15px 32px;
+  border-radius: var(--radius); font-family: var(--fh); font-size: 1rem;
+  font-weight: 600; text-decoration: none; display: inline-block;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: border-color 0.18s, background 0.18s;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); }
+
+/* ── AWARDS STRIP ── */
+.awards {
+  background: var(--dark-2);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 1.75rem 2rem;
+  display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+}
+.award { text-align: center; }
+.award-num { font-family: var(--fh); font-size: 1.9rem; font-weight: 800; color: #ffffff; display: block; line-height: 1; }
+.award-lbl { font-size: 0.78rem; color: var(--blue-mid); font-weight: 600; margin-top: 4px; display: block; letter-spacing: 0.04em; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+.section { padding: 88px 0; }
+.section-alt { background: var(--gray-50); }
+
+.section-kicker {
+  display: inline-block; background: var(--blue-light); color: var(--blue);
+  font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px; margin-bottom: 1rem; font-family: var(--fh);
+}
+.section-kicker.teal { background: var(--teal-light); color: var(--teal); }
+.section-kicker.green { background: var(--green-l); color: var(--green); }
+
+.section-h {
+  font-family: var(--fh); font-size: clamp(1.6rem, 3vw, 2.35rem);
+  font-weight: 800; color: var(--gray-900); line-height: 1.18;
+  max-width: 580px; margin-bottom: 1rem;
+}
+.section-p {
+  font-size: 0.97rem; color: var(--gray-600); max-width: 560px;
+  margin-bottom: 2.5rem; line-height: 1.8;
+}
+
+/* ── TWO COL ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+@media(max-width:768px){ .two-col { grid-template-columns:1fr; gap:2.5rem; } .nav-links{display:none;} }
+
+/* ── CHECKLIST ── */
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.check-list li {
+  display: flex; align-items: flex-start; gap: 11px;
+  font-size: 0.95rem; color: var(--gray-700); line-height: 1.65;
+}
+.ck-icon {
+  width: 22px; height: 22px; min-width: 22px;
+  background: var(--green-l); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}
+.ck-icon svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── MOCK DASHBOARD ── */
+.mock {
+  background: var(--dark-2); border-radius: 16px; padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+}
+.mock-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 1.1rem; }
+.md { width: 11px; height: 11px; border-radius: 50%; }
+.md.r{background:#ef4444;} .md.y{background:#f59e0b;} .md.g{background:#22c55e;}
+.mock-url { font-size: 0.74rem; color: #4b5563; margin-left: 8px; font-family: var(--fb); }
+.mock-section-title {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: #4b5563; font-weight: 600; margin-bottom: 8px; font-family: var(--fh);
+}
+.mock-panel {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 9px; padding: 1rem 1.1rem; margin-bottom: 10px;
+}
+.mock-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; font-size: 0.82rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.mock-row:last-child { border-bottom: none; }
+.mock-row .rl { color: #d1d5db; font-weight: 500; }
+.mock-row .rv { color: #6b7280; font-size: 0.78rem; }
+.badge-ok { background: rgba(22,163,74,0.18); color: #4ade80; padding: 2px 9px; border-radius: 99px; font-size: 0.72rem; font-weight: 700; }
+.badge-na { background: rgba(107,114,128,0.2); color: #9ca3af; padding: 2px 9px; border-radius: 99px; font-size: 0.72rem; font-weight: 600; }
+.mock-score {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(47,111,235,0.12); border: 1px solid rgba(47,111,235,0.25);
+  border-radius: 9px; padding: 0.9rem 1rem;
+}
+.sc-big { font-family: var(--fh); font-size: 2.4rem; font-weight: 800; color: #60a5fa; line-height: 1; }
+.sc-label { font-size: 0.85rem; font-weight: 700; color: #93b8f8; display: block; margin-bottom: 2px; }
+.sc-sub { font-size: 0.75rem; color: #4b5563; }
+
+/* ── FEATURE CARDS ── */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; }
+.card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 1.75rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.card-icon {
+  width: 46px; height: 46px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem;
+}
+.card-icon svg { width: 23px; height: 23px; }
+.ci-blue { background: var(--blue-light); } .ci-blue svg { fill: var(--blue); }
+.ci-teal { background: var(--teal-light); } .ci-teal svg { fill: var(--teal); }
+.ci-green { background: var(--green-l); } .ci-green svg { fill: var(--green); }
+.card h3 { font-family: var(--fh); font-size: 1.02rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
+.card p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.7; }
+
+/* ── INCIDENT STEPS ── */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+.step { background: var(--white); padding: 1.75rem; border-right: 1px solid var(--gray-200); }
+.step:last-child { border-right: none; }
+.step-num { font-family: var(--fh); font-size: 2.4rem; font-weight: 800; color: var(--blue-light); -webkit-text-stroke: 2px var(--blue); display: block; margin-bottom: 0.6rem; line-height: 1; }
+.step h4 { font-family: var(--fh); font-size: 0.97rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.4rem; }
+.step p { font-size: 0.85rem; color: var(--gray-600); line-height: 1.65; }
+
+/* ── PRICING ── */
+.pricing-box {
+  background: var(--white); border: 2.5px solid var(--blue);
+  border-radius: 18px; padding: 2.75rem; max-width: 500px; margin: 0 auto;
+  text-align: center; position: relative;
+  box-shadow: 0 8px 48px rgba(47,111,235,0.12);
+}
+.pricing-pill {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--blue); color: #fff;
+  font-size: 0.74rem; font-weight: 700; font-family: var(--fh);
+  padding: 4px 20px; border-radius: 999px; letter-spacing: 0.05em; white-space: nowrap;
+}
+.pricing-name { font-family: var(--fh); font-size: 1.5rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.2rem; }
+.pricing-sub { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+.pricing-amount { font-family: var(--fh); font-size: 3.4rem; font-weight: 800; color: var(--blue); margin: 0.5rem 0 0.15rem; line-height: 1; }
+.pricing-amount sup { font-size: 1.5rem; vertical-align: super; }
+.pricing-period { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 2rem; }
+.pricing-features { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+.pricing-features li { font-size: 0.9rem; color: var(--gray-700); display: flex; gap: 9px; align-items: flex-start; }
+.pricing-features li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; }
+
+/* ── CTA DARK ── */
+.cta-section {
+  background: var(--dark); padding: 96px 2rem; text-align: center;
+}
+.cta-section h2 {
+  font-family: var(--fh); font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 800; color: #ffffff; max-width: 640px; margin: 0 auto 1rem; line-height: 1.18;
+}
+.cta-section p { color: #6b7280; max-width: 500px; margin: 0 auto 2.25rem; font-size: 1rem; line-height: 1.8; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── BADGES STRIP ── */
+.badges {
+  background: var(--dark-2); padding: 2rem;
+  display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.badge-item { text-align: center; }
+.badge-title { font-family: var(--fh); font-size: 1.3rem; font-weight: 800; color: #fff; display: block; }
+.badge-sub { font-size: 0.75rem; color: var(--blue-mid); font-weight: 600; margin-top: 2px; letter-spacing: 0.04em; }
+
+/* ── FOOTER ── */
+footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 2.75rem 2rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+.footer-brand { font-family: var(--fh); font-weight: 800; font-size: 1rem; color: var(--gray-900); display: flex; align-items: center; gap: 8px; }
+.footer-brand-icon { width: 26px; height: 26px; background: var(--blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.footer-brand-icon svg { width: 14px; height: 14px; fill: #fff; }
+.footer-cols { display: flex; gap: 4rem; flex-wrap: wrap; }
+.footer-col h4 { font-family: var(--fh); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 0.75rem; }
+.footer-col a { display: block; font-size: 0.88rem; color: var(--gray-600); text-decoration: none; margin-bottom: 0.5rem; }
+.footer-col a:hover { color: var(--blue); }
+.footer-bottom { border-top: 1px solid var(--gray-200); padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.footer-copy { font-size: 0.78rem; color: var(--gray-400); }
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a { font-size: 0.78rem; color: var(--gray-400); text-decoration: none; }
+.footer-legal a:hover { color: var(--blue); }
+
+/* newsletter */
+.newsletter { display: flex; gap: 8px; max-width: 340px; }
+.newsletter input {
+  flex: 1; padding: 9px 12px; border: 1px solid var(--gray-200); border-radius: 7px;
+  font-size: 0.85rem; outline: none; color: var(--gray-800); font-family: var(--fb);
+}
+.newsletter input:focus { border-color: var(--blue); }
+.newsletter button {
+  background: var(--blue); color: #fff; border: none; padding: 9px 14px;
+  border-radius: 7px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  font-family: var(--fh); transition: background 0.18s;
+}
+.newsletter button:hover { background: var(--blue-h); }
+.newsletter-note { font-size: 0.75rem; color: var(--gray-400); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  Have you been hacked? <a href="https://www.wordfence.com/wordfence-site-cleanings/">Get Help</a> &nbsp;|&nbsp;
+  <a href="https://www.wordfence.com/wordfence-signup/">Create Account</a> &nbsp;|&nbsp; <a href="https://www.wordfence.com/sign-in/">Sign In</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-brand">
+    <div class="nav-shield">
+      <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5Z"/></svg>
+    </div>
+    <span><span class="brand-word">Wordfence</span><span class="brand-care">Care</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.wordfence.com/products/">Products</a></li>
+    <li><a href="https://www.wordfence.com/threat-intel/">Intelligence</a></li>
+    <li><a href="https://www.wordfence.com/help/">Support</a></li>
+    <li><a href="https://www.wordfence.com/blog/">News</a></li>
+    <li><a href="https://www.wordfence.com/about-wordfence/">About</a></li>
+    <li><a href="#pricing" class="nav-btn">View Pricing</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Managed WordPress Security</div>
+    <h1>WordfenceCare Is For Business Owners Who <span class="accent">Place a Premium on Their Time</span></h1>
+    <p class="hero-sub">
+      Our team <strong>installs, configures, optimizes, and maintains</strong> your WordPress site security.
+      WordfenceCare comes with all the benefits of Wordfence Premium, plus hands-on support during business hours
+      (9am to 8pm US Eastern Time) and full incident response at no extra cost.
+    </p>
+    <div class="hero-price-line">$590.00 USD <span>/ Year</span></div>
+    <div class="hero-btns">
+      <a href="/generate" class="btn-primary">Buy Now</a>
+      <a href="#compare" class="btn-outline">Compare Plans</a>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<div class="awards">
+  <div class="award"><span class="award-num">#1</span><span class="award-lbl">in Detection</span></div>
+  <div class="award"><span class="award-num">#1</span><span class="award-lbl">in Protection</span></div>
+  <div class="award"><span class="award-num">#1</span><span class="award-lbl">in Support</span></div>
+</div>
+
+<!-- SECTION 1: WE START BY INSTALLING -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="section-kicker">We Start By</div>
+        <h2 class="section-h">Installing, Configuring, and Optimizing Your Site Security</h2>
+        <p class="section-p">
+          When you sign up for WordfenceCare, we install, configure, and optimize Wordfence to provide maximum
+          protection for your site with a custom configuration based on the kind of website you are running and
+          your specific needs. We also include a comprehensive security audit that will resolve any existing
+          security problems or infections.
+        </p>
+        <ul class="check-list">
+          <li>
+            <span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>
+            Our team reviews audit results with you and answers any questions
+          </li>
+          <li>
+            <span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>
+            If your site is already infected, we resolve it at no additional cost before configuring
+          </li>
+          <li>
+            <span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>
+            Licenses cover one site per license — multi-site isolation support available
+          </li>
+          <li>
+            <span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>
+            Custom configuration based on your site type and specific needs
+          </li>
+        </ul>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <div class="md r"></div><div class="md y"></div><div class="md g"></div>
+          <span class="mock-url">WordfenceCare — Site Security Dashboard</span>
+        </div>
+        <div class="mock-section-title">Security Status — yourdomain.com</div>
+        <div class="mock-panel">
+          <div class="mock-row"><span class="rl">Firewall Status</span><span class="badge-ok">Active &amp; Learning</span></div>
+          <div class="mock-row"><span class="rl">Malware Scan</span><span class="badge-ok">Clean</span></div>
+          <div class="mock-row"><span class="rl">Login Security</span><span class="badge-ok">Enforced</span></div>
+          <div class="mock-row"><span class="rl">XML-RPC</span><span class="badge-ok">Disabled</span></div>
+          <div class="mock-row"><span class="rl">WP Version Exposure</span><span class="badge-ok">Hidden</span></div>
+          <div class="mock-row"><span class="rl">Audit Log Retention</span><span class="badge-ok">6 Months</span></div>
+          <div class="mock-row"><span class="rl">Last Scan</span><span class="rv">4 minutes ago</span></div>
+        </div>
+        <div class="mock-score">
+          <span class="sc-big">98</span>
+          <div>
+            <span class="sc-label">Security Score</span>
+            <span class="sc-sub">Excellent — No issues detected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: WE MONITOR -->
+<section class="section section-alt" id="monitoring">
+  <div class="container">
+    <div class="section-kicker teal">Proactive Monitoring</div>
+    <h2 class="section-h">We Monitor Your Site Security</h2>
+    <p class="section-p">
+      WordfenceCare includes proactive monitoring of your site security via both the Events tab as well as the Audit Log
+      on the Wordfence Central dashboard. Audit Log events are stored on Wordfence Central for 6 months for sites with a
+      Care license. If our team sees a security issue, we contact you to discuss it.
+    </p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon ci-blue">
+          <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </div>
+        <h3>Events Tab Monitoring</h3>
+        <p>Our team actively reviews your site's events and audit log. If we see a security issue, we contact you immediately to discuss it.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-teal">
+          <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5Z"/></svg>
+        </div>
+        <h3>6-Month Audit Log Retention</h3>
+        <p>Audit log events are stored on Wordfence Central for 6 months on all Care licenses — giving you a full security history.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon ci-green">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <h3>Proactive Problem Resolution</h3>
+        <p>If it's a problem, we resolve the issue for you — activating our incident response team if necessary at no extra cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: INCIDENT RESPONSE -->
+<section class="section" id="incident-response">
+  <div class="container">
+    <div class="section-kicker">Incident Response</div>
+    <h2 class="section-h">Malware Removal, Incident Response, Blocklist Removal, and Search Cleanup</h2>
+    <p class="section-p">
+      As a WordfenceCare customer, if you have a security incident, we activate incident response and provide
+      a full malware cleanup and forensic investigation at no extra charge.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h4>Full Malware Cleanup</h4>
+        <p>Complete removal of malicious code, backdoors, and injected files from your site and server.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h4>Forensic Investigation</h4>
+        <p>Every incident comes with a full report: what happened, why it happened, and how to prevent recurrence.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h4>Blocklist Removal</h4>
+        <p>If your site was added to any malicious site lists, we help you get removed to protect your reputation.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <h4>Search Engine Cleanup</h4>
+        <p>If you have any search engine issues related to the incident, we work with you to resolve those too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FOR BUSINESS OWNERS -->
+<section class="section section-alt" id="for-business">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="section-kicker green">For Business Owners</div>
+        <h2 class="section-h">For Business Owners Who Place a Premium On Their Time</h2>
+        <p class="section-p">
+          WordfenceCare is designed for small to medium-sized businesses. Whether you're a sole proprietor or a
+          fast-growing team, we understand that your time is best spent on innovation and serving your customers.
+          We created WordfenceCare with you in mind.
+        </p>
+        <ul class="check-list">
+          <li><span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>Delegate your WordPress site security to global leaders in WordPress security</li>
+          <li><span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>Get back to creating, leading, and innovating</li>
+          <li><span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>Priority support and unlimited hands-on incident response</li>
+          <li><span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>Business hours support: 9am to 8pm US Eastern Time</li>
+          <li><span class="ck-icon"><svg viewBox="0 0 12 12"><polyline points="1,6 4.5,9.5 11,2"/></svg></span>Response customers receive 24-hour support, 365 days a year with 1-hour response time</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div class="card">
+          <div class="card-icon ci-blue">
+            <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          </div>
+          <h3>Includes Free Centralized Management</h3>
+          <p>Wordfence Central lets you manage security for multiple WordPress sites from a single console. Rapidly assess the security status of all your websites on one page.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon ci-teal">
+            <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm-1 14-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg>
+          </div>
+          <h3>All Wordfence Premium Benefits</h3>
+          <p>Real-time firewall rules, malware signature updates, IP blocklist, country blocking, and more — all included with your WordfenceCare plan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container" style="text-align:center;">
+    <div class="section-kicker" style="display:inline-block;">Simple Pricing</div>
+    <h2 class="section-h" style="margin:0 auto 1rem;text-align:center;">One Plan. Everything Included.</h2>
+    <p class="section-p" style="margin:0 auto 3rem;text-align:center;">
+      Malware removal, incident response, and hands-on expert support — all included. No surprise fees.
+    </p>
+    <div class="pricing-box">
+      <div class="pricing-pill">Most Popular</div>
+      <div class="pricing-name">WordfenceCare</div>
+      <p class="pricing-sub">For business owners who place a premium on their time</p>
+      <div class="pricing-amount"><sup>$</sup>590</div>
+      <div class="pricing-period">USD / Year</div>
+      <ul class="pricing-features">
+        <li>Installation, configuration &amp; optimization</li>
+        <li>Comprehensive security audit on signup</li>
+        <li>Proactive site monitoring via Events tab &amp; Audit Log</li>
+        <li>6-month audit log retention on Wordfence Central</li>
+        <li>Unlimited malware removal &amp; incident response</li>
+        <li>Full forensic investigation &amp; incident report</li>
+        <li>Blocklist removal &amp; search engine cleanup</li>
+        <li>Business hours support — 9am to 8pm ET</li>
+        <li>Free access to Wordfence Central dashboard</li>
+        <li>All Wordfence Premium features included</li>
+        <li>Priority support from our security team</li>
+      </ul>
+      <a href="/generate" class="btn-primary" style="display:block;width:100%;text-align:center;font-size:1rem;">Buy Now</a>
+      <p style="margin-top:1rem;font-size:0.8rem;color:#9ca3af;">Licenses cover one site per license</p>
+    </div>
+  </div>
+</section>
+
+<!-- BADGES -->
+<div class="badges">
+  <div class="badge-item"><span class="badge-title">#1</span><span class="badge-sub">in Detection</span></div>
+  <div class="badge-item"><span class="badge-title">#1</span><span class="badge-sub">in Protection</span></div>
+  <div class="badge-item"><span class="badge-title">#1</span><span class="badge-sub">in Support</span></div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="container">
+    <h2>With WordfenceCare, We Take Care of It</h2>
+    <p>
+      Click here now to activate the WordfenceCare team, secure your site, and get back to doing what you're great at.
+    </p>
+    <div class="cta-btns">
+      <a href="/generate" class="btn-primary">Buy WordfenceCare Now!</a>
+      <a href="#compare" class="btn-outline">Compare Plans</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:#374151;">
+      Our business hours are 9am–8pm ET, 6am–5pm PT and 2pm–1am UTC/GMT excluding weekends and holidays.<br>
+      Response customers receive 24-hour support, 365 days a year, with a 1-hour response time.
+    </p>
+  </div>
+</div>
+
+<!-- COMPARE PLANS -->
+<section class="section section-alt" id="compare">
+  <div class="container" style="text-align:center;">
+    <div class="section-kicker" style="display:inline-block;">Compare Plans</div>
+    <h2 class="section-h" style="margin:0 auto 0.75rem;text-align:center;">Find the Right Plan for You</h2>
+    <p class="section-p" style="margin:0 auto 2.5rem;text-align:center;">All plans include the core Wordfence plugin. Upgrade for hands-on expert care.</p>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;max-width:860px;margin:0 auto;border-collapse:collapse;font-size:0.9rem;text-align:left;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--gray-200);">
+            <th style="padding:14px 16px;color:var(--gray-500);font-weight:600;font-family:var(--fh);width:34%;">Feature</th>
+            <th style="padding:14px 16px;color:var(--gray-700);font-weight:700;font-family:var(--fh);text-align:center;">Free</th>
+            <th style="padding:14px 16px;color:var(--gray-700);font-weight:700;font-family:var(--fh);text-align:center;">Premium</th>
+            <th style="padding:14px 16px;color:var(--blue);font-weight:700;font-family:var(--fh);text-align:center;background:var(--blue-light);border-radius:8px 8px 0 0;">Care ✦</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Firewall &amp; Malware Scanner</td><td style="text-align:center;color:var(--green);font-weight:700;">✓</td><td style="text-align:center;color:var(--green);font-weight:700;">✓</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Real-time IP Blocklist</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;">✓</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Real-time Firewall Rules</td><td style="text-align:center;color:var(--gray-400);">30-day delay</td><td style="text-align:center;color:var(--green);font-weight:700;">Real-time</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">Real-time</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Country Blocking</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;">✓</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Hands-on Installation &amp; Config</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Proactive Site Monitoring</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Incident Response &amp; Malware Removal</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">✓ Unlimited</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Audit Log Retention</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--gray-400);">—</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">6 Months</td></tr>
+          <tr style="border-bottom:1px solid var(--gray-200);"><td style="padding:12px 16px;color:var(--gray-700);">Priority Support</td><td style="text-align:center;color:var(--gray-400);">Community</td><td style="text-align:center;color:var(--gray-700);">Email</td><td style="text-align:center;color:var(--green);font-weight:700;background:#f0f6ff;">Priority + Hands-on</td></tr>
+          <tr><td style="padding:14px 16px;font-weight:700;font-family:var(--fh);color:var(--gray-900);">Price</td><td style="text-align:center;font-weight:700;font-family:var(--fh);color:var(--gray-900);">Free</td><td style="text-align:center;font-weight:700;font-family:var(--fh);color:var(--gray-900);">$119/yr</td><td style="text-align:center;font-weight:700;font-family:var(--fh);color:var(--blue);background:#f0f6ff;border-radius:0 0 8px 8px;">$590/yr</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;">
+      <a href="/generate" class="btn-primary">Get WordfenceCare</a>
+      <a href="https://www.wordfence.com/wordfence-signup/" class="btn-outline" style="color:var(--gray-700);border-color:var(--gray-300);">Get Premium</a>
+      <a href="https://wordpress.org/plugins/wordfence/" class="btn-outline" style="color:var(--gray-700);border-color:var(--gray-300);">Get Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-icon"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5Z"/></svg></div>
+          WordfenceCare
+        </div>
+        <p style="font-size:0.82rem;color:#9ca3af;max-width:260px;margin-top:0.75rem;line-height:1.7;">
+          Stay Updated — Sign up for news and updates from our panel of experienced security professionals.
+        </p>
+        <div class="newsletter" style="margin-top:1rem;">
+          <input type="email" placeholder="you@example.com"/>
+          <button onclick="handleNewsletter(this)">Subscribe</button>
+        </div>
+        <p class="newsletter-note">By subscribing I agree to the <a href="https://www.wordfence.com/terms-of-service/" style="color:var(--blue-mid);text-decoration:none;">terms of service</a> and <a href="https://www.wordfence.com/privacy-policy/" style="color:var(--blue-mid);text-decoration:none;">privacy policy</a>.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Products</h4>
+          <a href="https://wordpress.org/plugins/wordfence/">Wordfence Free</a>
+          <a href="https://www.wordfence.com/wordfence-signup/">Wordfence Premium</a>
+          <a href="https://www.wordfence.com/products/wordfence-care/" aria-current="page">WordfenceCare</a>
+          <a href="https://www.wordfence.com/products/wordfence-response/">Wordfence Response</a>
+          <a href="https://www.wordfence.com/products/wordfence-cli/">Wordfence CLI</a>
+          <a href="https://www.wordfence.com/threat-intel/">Wordfence Intelligence</a>
+          <a href="https://www.wordfence.com/wordfence-central/">Wordfence Central</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="https://www.wordfence.com/help/">Documentation</a>
+          <a href="https://www.wordfence.com/learn/">Learning Center</a>
+          <a href="https://www.wordfence.com/help/">Free Support</a>
+          <a href="https://www.wordfence.com/wordfence-signup/">Premium Support</a>
+        </div>
+        <div class="footer-col">
+          <h4>News</h4>
+          <a href="https://www.wordfence.com/blog/">Blog</a>
+          <a href="https://www.wordfence.com/in-the-news/">In The News</a>
+          <a href="https://www.wordfence.com/threat-intel/vulnerabilities/">Vulnerability Advisories</a>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <a href="https://www.wordfence.com/about-wordfence/">About WordfenceCare</a>
+          <a href="https://www.wordfence.com/affiliates/">Affiliate Program</a>
+          <a href="https://www.wordfence.com/employment/">Employment</a>
+          <a href="https://www.wordfence.com/contact/">Contact</a>
+          <a href="https://www.wordfence.com/security/">Security</a>
+          <a href="https://www.wordfence.com/cve-request/">CVE Request Form</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2012–2026 WordfenceCare. All Rights Reserved.</div>
+      <div class="footer-legal">
+        <a href="https://www.wordfence.com/terms-of-service/">Terms of Service</a>
+        <a href="https://www.wordfence.com/privacy-policy/">Privacy Policy and Notice at Collection</a>
+        <a href="https://www.wordfence.com/privacy-policy/#do-not-sell">Do Not Sell or Share My Personal Information</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleNewsletter(btn) {
+  const input = btn.previousElementSibling;
+  const email = input.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    input.style.borderColor = '#dc2626';
+    input.focus();
+    return;
+  }
+  btn.textContent = 'Subscribed ✓';
+  btn.style.background = '#16a34a';
+  btn.disabled = true;
+  input.disabled = true;
+}
+</script>
