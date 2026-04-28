@@ -8,6 +8,17 @@ const https      = require("https");
 
 const app = express();
 app.use(bodyParser.json());
+
+// ── Explicit page routes FIRST (before static middleware) ──
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "landing.html"));
+});
+
+app.get("/generate", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "generate.html"));
+});
+
+// Static files (CSS, images etc) — comes AFTER explicit routes
 app.use(express.static("public"));
 
 const PORT           = process.env.PORT || 3000;
@@ -18,20 +29,6 @@ const PRICE_CENTS    = 59000; // $590.00 USD in cents (Paystack uses smallest un
 // Ensure required folders exist on startup
 ["generated", "pending"].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-});
-
-// ────────────────────────────────────────────────
-// PAGE ROUTES
-// ────────────────────────────────────────────────
-
-// Landing page — wordfencecare.com/
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "landing.html"));
-});
-
-// Plugin generator/payment form — wordfencecare.com/generate
-app.get("/generate", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "generate.html"));
 });
 
 // ────────────────────────────────────────────────
