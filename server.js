@@ -24,7 +24,7 @@ app.use(express.static("public"));
 const PORT           = process.env.PORT || 3000;
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY || "sk_test_REPLACE_ME";
 const BASE_URL       = process.env.BASE_URL || `http://localhost:${PORT}`;
-const PRICE_CENTS    = 59000; // $590.00 USD in cents (Paystack uses smallest unit)
+const PRICE_KOBO  = 79815000; // ₦798,150 in kobo (100 kobo = ₦1)
 
 // Ensure required folders exist on startup
 ["generated", "pending"].forEach(dir => {
@@ -57,10 +57,10 @@ app.post("/initiate-payment", (req, res) => {
   // Build Paystack initialize request body
   const body = JSON.stringify({
     email,
-    amount: PRICE_CENTS,
+    amount: PRICE_KOBO,
     reference: ref,
     callback_url: `${BASE_URL}/payment-success?ref=${ref}`,
-    currency: "USD",
+    currency: "NGN",
     metadata: {
       custom_fields: [
         {
